@@ -11,5 +11,5 @@ This example demonstrates a custom authentication system for login and registrat
 # For migrate tables::
 - php artisan migrate
 
-for run the project::
+# For run the project::
 - php artisan serve
