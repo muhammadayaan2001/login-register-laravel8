@@ -19,8 +19,9 @@ Route::get('/', function () {
 });
 
 
-Route::get('/admin-dash', [AuthController::class, 'dashboard']);
-Route::get('/user-dash', [AuthController::class, 'userDashboard']);
+Route::get('/admin-dash', [AuthController::class, 'dashboard'])->middleware('IsAdminLoggedin');
+Route::get('/user-dash', [AuthController::class, 'userDashboard'])->middleware('isUserLoggedin');
+Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::get('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'register']);

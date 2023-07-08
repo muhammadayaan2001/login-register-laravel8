@@ -5,6 +5,11 @@
 <div class="container">
     <h3>Login</h3>
     <form class="mb-3" action="{{ route('user.login') }}" method="POST">
+        @if(Session::has('fail'))
+            <div class="alert alert-danger">
+                {{ Session::get('fail') }}
+            </div>
+        @endif   
         @csrf
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email address</label>

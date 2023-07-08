@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
@@ -32,18 +32,16 @@ class AuthController extends Controller
 
         $email = $request->email;
         $password = $request->password;
-    
-        // Email ke existence ko check kare
+
         $user = User::where('email', $email)->first();
     
         if ($user) {
-            // Password ko compare kare
             if (Hash::check($password, $user->password)) {
                 if ($user->role == 1) {
-                    $request->session()->put('loginId', $user->id);
+                    $request->session()->put('adminId', $user->id);
                     return redirect('/admin-dash');
                 } elseif ($user->role == 2) {
-                    $request->session()->put('loginId', $user->id);
+                    $request->session()->put('userId', $user->id);
                     return redirect('/user-dash');
                 }
             }
@@ -88,8 +86,12 @@ class AuthController extends Controller
     }
 
     public function logout(){
-        if(Session::has('loginId')){
-            Session::pull('loginId');
+        if(Session::has('adminId')){
+            Session::pull('adminId');
+            return redirect('login');
+        }
+        elseif(Session::has('userId')){
+            Session::pull('userId');
             return redirect('login');
         }
     }

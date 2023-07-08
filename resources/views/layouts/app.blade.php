@@ -23,7 +23,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
-                        @guest
+                        @if(!Session::has('adminId') && !Session::has('userId'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/login') }}">Login</a>
                         </li>
@@ -34,7 +34,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/logout') }}">Logout</a>
                         </li>
-                        @endguest
+                        @endif
                     </ul>
                 </div>
             </div>
