@@ -10,12 +10,19 @@ use Illuminate\Support\Facades\Session;
 class AuthController extends Controller
 {
     public function dashboard(){
-        return view('dashboards.admin');
-
+        $data = array();
+        if(Session::has('adminId')){
+            $data = User::where('id', '=', Session::get('adminId'))->first();
+        }
+        return view('dashboards.admin', compact('data'));
     }
 
     public function userDashboard(){
-        return view('dashboards.user');
+        $data = array();
+        if(Session::has('userId')){
+            $data = User::where('id', '=', Session::get('userId'))->first();
+        }
+        return view('dashboards.user', compact('data'));
     }
 
     public function login(){
